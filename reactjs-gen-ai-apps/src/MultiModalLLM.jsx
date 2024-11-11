@@ -107,7 +107,7 @@ export default () => {
                     value={value}
                     disabled={loading}
                     inputMode="text" />
-                <Button fullWidth key={2} loading={loading} onClick={sendImageAndText} variant="primary" >Enviar</Button>
+                <Button fullWidth key={2} loading={loading} onClick={sendImageAndText} variant="primary" >Send</Button>
             </SpaceBetween>
         </Container>
     )
