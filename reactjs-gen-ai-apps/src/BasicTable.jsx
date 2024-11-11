@@ -28,7 +28,7 @@ export default ({ columnDefinitions, columnDisplay, itemList, rowClick }) => {
         filter={
             <TextFilter
                 filteringText={filteringText}
-                filteringPlaceholder="Buscar"
+                filteringPlaceholder="Search"
                 onChange={({ detail }) =>
                     setFilteringText(detail.filteringText)}
             />

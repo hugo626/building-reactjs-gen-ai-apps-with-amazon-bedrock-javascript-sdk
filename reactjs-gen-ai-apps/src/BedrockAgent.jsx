@@ -51,7 +51,7 @@ export default () => {
     return (
 
         <Container key={2} disableContentPaddings={false}
-            header={<Header variant="h2">Conversacion</Header>}>
+            header={<Header variant="h2">Conversation</Header>}>
 
             <SpaceBetween size="xs">
                 <BedrockAgentLoader ref={childRef} key={1} />

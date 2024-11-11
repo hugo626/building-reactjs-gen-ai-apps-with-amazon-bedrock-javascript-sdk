@@ -60,7 +60,7 @@ export default () => {
     return (
 
         <Container key={2} disableContentPaddings={false}
-            header={<Header variant="h2">Conversacion</Header>}>
+            header={<Header variant="h2">Conversation</Header>}>
 
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
@@ -79,7 +79,7 @@ export default () => {
                 </Box>
                 {
                     llmResponse !== "" ?
-                        <Container fitHeight header={<strong>Respuesta LLM</strong>}>
+                        <Container fitHeight header={<strong>LLM Answer</strong>}>
                             <div dangerouslySetInnerHTML={{ __html: llmResponse }} />
                         </Container> :
                         null

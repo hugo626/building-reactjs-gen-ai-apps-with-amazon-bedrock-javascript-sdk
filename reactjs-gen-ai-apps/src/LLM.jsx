@@ -39,7 +39,7 @@ export default ({llm}) => {
     return (
 
         <Container
-            header={<Header variant="h2">Conversacion</Header>}>
+            header={<Header variant="h2">Conversation</Header>}>
             <Box data-id="chat-window">
             {
                     chat.length ?

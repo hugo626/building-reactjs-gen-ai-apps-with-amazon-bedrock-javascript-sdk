@@ -79,7 +79,7 @@ const Menu = ({ signOut, groups, ...user }) => {
           items: [
             { id: "email", text: user.signInDetails?.loginId },
             {
-              id: "signout", text: "Salir"
+              id: "signout", text: "Sign Out"
             }
           ]
 

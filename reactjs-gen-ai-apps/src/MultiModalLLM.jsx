@@ -66,7 +66,7 @@ export default () => {
                         <Button onClick={newConversation} >New Conversation</Button></SpaceBetween>
                 }
                 description="You can combine images and text in the input"
-                variant="h2">Conversacion</Header>}>
+                variant="h2">Conversation</Header>}>
 
             <SpaceBetween size="xs">
 
@@ -85,7 +85,7 @@ export default () => {
                 </Box>
                 {
                     llmResponse !== "" ?
-                        <Container fitHeight header={<strong>Respuesta LLM</strong>}>
+                        <Container fitHeight header={<strong>LLM Answer</strong>}>
                             <div dangerouslySetInnerHTML={{ __html: llmResponse }} />
                         </Container> :
                         null
