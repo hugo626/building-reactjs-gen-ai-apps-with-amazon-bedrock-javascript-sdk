@@ -35,12 +35,12 @@ export default () => {
         setMessages(prev => [...prev,{ role: "user", content: content }])
         const question = await getStandaloneQuestion({modelId:currentModelId, messages:messages,  question:  value})
         console.log("standalone question:", question)
-        setLLMResponse(msg => msg + `Entendí: <strong>${question}</strong><br/>`)
+        setLLMResponse(msg => msg + `My Understand: <strong>${question}</strong><br/>`)
 
         const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value)
         const docs = await retriever.invoke(question)   
 
-        let minScore = 0.5
+        let minScore = 0.3
         const filteredDocs = filterDocsByScore(docs, minScore)
         console.log(" docs:", docs)
         if (filteredDocs.length === 0) {
@@ -52,6 +52,7 @@ export default () => {
         }
 
         childRef3.current.focus()
+        setLoading(false)
     }
 
 
