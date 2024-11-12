@@ -48,7 +48,7 @@ export default () => {
             setLLMResponse(msg => msg + `${nodocs_msg}`)
         } else {
             const answer  =  await answerQuestionWithContext({modelId: currentModelId,question: question, docs: filteredDocs,   callbacks: [{ handleLLMNewToken }]})
-            console.log(answer)
+            // console.log(answer)
         }
 
         childRef3.current.focus()

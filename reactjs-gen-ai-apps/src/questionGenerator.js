@@ -54,7 +54,7 @@ export const answerQuestionWithContext = async ({ modelId, docs, question, callb
 
 
     let context = docs.map(doc => getContextFromDoc(doc)).join("\n")
-    let system = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context}. Provide sources (in the <source> tags within your response)`
+    let system = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context}. Provide sources (in the <cite> tags within your response)`
     console.log("context:", context)
 
     const body = {

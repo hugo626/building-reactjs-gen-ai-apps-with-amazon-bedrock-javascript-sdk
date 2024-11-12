@@ -39,7 +39,7 @@ export default () => {
                         url= location.s3Location.uri;
                         break;
                     case 'WEB':   
-                        url= location.webLocation.uri;
+                        url= location.webLocation.url;
                         break;
                     default:
                         url = location.type;
