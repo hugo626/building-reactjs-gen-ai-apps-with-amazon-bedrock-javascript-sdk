@@ -66,7 +66,7 @@ export default () => {
                         <Button onClick={newConversation} >New Conversation</Button></SpaceBetween>
                 }
                 description="You can combine images and text in the input"
-                variant="h2">Conversation</Header>}>
+                variant="h2">Conversacion</Header>}>
 
             <SpaceBetween size="xs">
 
@@ -85,7 +85,7 @@ export default () => {
                 </Box>
                 {
                     llmResponse !== "" ?
-                        <Container fitHeight header={<strong>LLM Answer</strong>}>
+                        <Container fitHeight header={<strong>Respuesta LLM</strong>}>
                             <div dangerouslySetInnerHTML={{ __html: llmResponse }} />
                         </Container> :
                         null
@@ -107,7 +107,7 @@ export default () => {
                     value={value}
                     disabled={loading}
                     inputMode="text" />
-                <Button fullWidth key={2} loading={loading} onClick={sendImageAndText} variant="primary" >Send</Button>
+                <Button fullWidth key={2} loading={loading} onClick={sendImageAndText} variant="primary" >Enviar</Button>
             </SpaceBetween>
         </Container>
     )

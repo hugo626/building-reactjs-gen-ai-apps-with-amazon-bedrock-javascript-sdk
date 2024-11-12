@@ -27,7 +27,7 @@ export default ({ headerText, itemList,
                 header={
                     <Header
                         actions={<SpaceBetween direction="horizontal" size="xs">
-                            {newEnabled ? <Button onClick={newItem} >Nuevo +</Button> : null}
+                            {newEnabled ? <Button onClick={newItem} >Create New Prompt</Button> : null}
                         </SpaceBetween>
                         }>
                         {headerText}
