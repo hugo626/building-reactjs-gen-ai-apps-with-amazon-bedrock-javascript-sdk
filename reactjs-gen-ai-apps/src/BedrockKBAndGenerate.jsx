@@ -33,8 +33,12 @@ export default () => {
         let citations = response?.citations.map(citation => {
             return citation.retrievedReferences.map(reference => {
                 let location = reference.location
-                if (location.type == "S3") return location.s3Location.uri
-                if (location.type == "WEB") return location.webLocation.uri
+                switch (location.type){
+                    case 'S3':
+                        return location.s3Location.uri;
+                    case 'WEB':   
+                        return location.webLocation.uri;
+                }
             })
         })
 
