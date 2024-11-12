@@ -34,6 +34,7 @@ export default () => {
             return citation.retrievedReferences.map(reference => {
                 let location = reference.location
                 if (location.type == "S3") return location.s3Location.uri
+                if (location.type == "WEB") return location.webLocation.uri
             })
         })
 
