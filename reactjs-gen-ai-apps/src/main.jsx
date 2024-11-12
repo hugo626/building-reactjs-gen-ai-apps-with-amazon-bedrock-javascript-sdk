@@ -10,8 +10,8 @@ import { ThemeProvider,createTheme, defaultTheme } from "@aws-amplify/ui-react";
 
 
 
-import awsconfig from './aws-exports'
-Amplify.configure(awsconfig);
+import awsConfig from './aws-exports'
+Amplify.configure(awsConfig);
 
 
 const studioTheme = createTheme(defaultTheme)
