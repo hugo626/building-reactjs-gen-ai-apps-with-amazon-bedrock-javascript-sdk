@@ -33,15 +33,24 @@ export default () => {
         let citations = response?.citations.map(citation => {
             return citation.retrievedReferences.map(reference => {
                 let location = reference.location
+                let url = '';
                 switch (location.type){
                     case 'S3':
-                        return location.s3Location.uri;
+                        url= location.s3Location.uri;
+                        break;
                     case 'WEB':   
-                        return location.webLocation.uri;
+                        url= location.webLocation.uri;
+                        break;
+                    default:
+                        url = location.type;
+                        break;
                 }
+
+                console.log(" citations type:", location.type);
+                console.log(" citations url:", url);
             })
         })
-
+        console.log(" citations:", citations);
         let references = []
         citations.forEach(citation => {
             if (citation) references.push(...citation)

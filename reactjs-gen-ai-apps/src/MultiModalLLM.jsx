@@ -43,17 +43,25 @@ export default () => {
         setValue("")
         setFiles([])
         console.log(content)
-        setMessages(prev => {
-            const history = [...prev, { role: "user", content: content }]
-            const body = {
-                "messages": history,
-                "anthropic_version": "bedrock-2023-05-31", "max_tokens": 1000
-            }
-            console.log(systemPrompt)
-            if (systemPrompt) body["system"] = systemPrompt
-            invokeModelStreaming(body, currentModelId, { callbacks: [{ handleLLMNewToken }] })
-            return history
-        })
+        try { 
+            setMessages(prev => {
+                const history = [...prev, { role: "user", content: content }]
+                const body = {
+                    "messages": history,
+                    "anthropic_version": "bedrock-2023-05-31", "max_tokens": 1000
+                }
+                console.log(systemPrompt)
+                if (systemPrompt) body["system"] = systemPrompt
+                invokeModelStreaming(body, currentModelId, { callbacks: [{ handleLLMNewToken }] })
+                return history
+            })
+
+        }
+        catch (e) { // <-- note `e` has explicit `unknown` type
+            console.log(e);
+            setLoading(false);
+        }
+        
     }
 
 
