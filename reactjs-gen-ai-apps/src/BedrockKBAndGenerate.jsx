@@ -48,6 +48,7 @@ export default () => {
 
                 console.log(" citations type:", location.type);
                 console.log(" citations url:", url);
+                return url;
             })
         })
         console.log(" citations:", citations);
