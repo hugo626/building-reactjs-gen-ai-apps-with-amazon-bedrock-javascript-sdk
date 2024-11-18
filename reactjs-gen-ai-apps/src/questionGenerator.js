@@ -16,7 +16,7 @@ export const questionGenerator = async ({ modelId, messages, question, callbacks
 const getContextFromDoc = (doc) => {
     let page = doc.metadata?.page ? ` Pag ${doc.metadata.page}` : ""
     let source = doc.metadata?.source ? `<source>${doc.metadata.source}${page}</source>` : ""
-    return `<document>${doc.pageContent}${page}<document>`
+    return `<document>${doc.pageContent}${page}${source}<document>`
 }
 
 export const answerQuestionWithContextFromMemory = async ({ modelId, docs, question, callbacks }) => {
@@ -28,7 +28,7 @@ export const answerQuestionWithContextFromMemory = async ({ modelId, docs, quest
 
     let context = docs.map(doc => getContextFromDoc(doc[0])).join("\n")
     let system = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context}. Provide sources (in the <source> tags within your response)`
-    //console.log("context:", context)
+    console.log("context:", context)
 
     const body = {
         "messages": newMessages,
