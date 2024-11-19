@@ -40,10 +40,10 @@ export default () => {
         console.log("standalone question:", question)
         setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
 
-        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, topKValue)
+        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, 20)
         const docs = await retriever.invoke(question)   
 
-        let minScore = scoreValue
+        let minScore = 0.5
         const filteredDocs = filterDocsByScore(docs, minScore)
         console.log(" docs:", docs)
         if (filteredDocs.length === 0) {
