@@ -48,6 +48,14 @@ export const filterDocsByScore = (docs, minScore) => docs.filter(doc => {
     return true
 })
 
+export const filteredResultsByScore = (results, minScore) => results.filter(result => {
+    console.log("result.metadata?.score:", result.metadata?.score)
+    if (result.metadata?.score ){
+        return result.metadata.score >= minScore
+    } 
+    return true
+})
+
 
 export const answerQuestionWithContext = async ({ modelId, docs, question, callbacks }) => {
     const newMessages = [{ role: "user", content: [{ type: "text", text: question }] }]

@@ -7,7 +7,7 @@ import { getBedrockKnowledgeBaseRetriever, retrieveBedrockKnowledgeBase } from "
 import FMPicker from "./FMPicker";
 import { answerQuestionWithContext, getStandaloneQuestion } from "./questionGenerator";
 import { buildContent, handleStreamingTokenResponse } from "./messageHelpers";
-import { filterDocsByScore } from "./questionGenerator";
+import { filterDocsByScore, filteredResultsByScore } from "./questionGenerator";
 
 export default () => {
 
@@ -40,6 +40,8 @@ export default () => {
 
         const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, question);
         console.log(" retrieveCommand:", response);
+        const filteredResults = filteredResultsByScore(response.retrievalResults, scoreValue)
+        console.log(" filteredResults:", filteredResults);
 
         const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, topKValue)
         const docs = await retriever.invoke(question)   
@@ -69,39 +71,59 @@ export default () => {
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
-                <FormField label="MinScore ">
-                    <Slider
-                        onChange={({ detail }) =>
-                            setScoreValue(detail.value)
-                        }
-                        value={scoreValue}
-                        max={1}
-                        min={0}
-                        step={0.1}
-                    />
-                    <Input type="number" inputMode="decimal" 
-                        value={scoreValue.toString()}
-                        step={0.1}
-                        onChange={({ detail }) => setScoreValue(Number(detail.value))}
+                <FormField label="MinScore">
+                    <div className="flex-wrapper">
+                        <div className="slider-wrapper">
+                        <Slider
+                            onChange={({ detail }) =>
+                                setScoreValue(detail.value)
+                            }
+                            value={scoreValue}
+                            max={1}
+                            min={0}
+                            step={0.1}
                         />
+                        </div>
+                        <SpaceBetween
+                        size="m"
+                        alignItems="center"
+                        direction="horizontal"
+                        >
+                        <div className="input-wrapper">
+                            <Input type="number" inputMode="decimal" 
+                                value={scoreValue.toString()}
+                                step={0.1}
+                                onChange={({ detail }) => setScoreValue(Number(detail.value))}/>
+                        </div>
+                        </SpaceBetween>
+                    </div>
                 </FormField>
 
-                <FormField label="Top K">
-                    <Slider
-                        onChange={({ detail }) =>
-                            setTopKValue(detail.value)
-                        }
-                        value={topKValue}
-                        max={50}
-                        min={3}
-                    />
-                    <Input type="number" inputMode="numeric" 
-                        value={topKValue.toString()}
-                        onChange={({ detail }) => setTopKValue(Number(detail.value))}
-                        />
+                <FormField label="MinScore">
+                    <div className="flex-wrapper">
+                        <div className="slider-wrapper">
+                            <Slider
+                                onChange={({ detail }) =>
+                                    setTopKValue(detail.value)
+                                }
+                                value={topKValue}
+                                max={50}
+                                min={3}
+                            />
+                        </div>
+                        <SpaceBetween
+                        size="m"
+                        alignItems="center"
+                        direction="horizontal"
+                        >
+                        <div className="input-wrapper">
+                            <Input type="number" inputMode="numeric" 
+                                value={topKValue.toString()}
+                                onChange={({ detail }) => setTopKValue(Number(detail.value))} />
+                        </div>
+                        </SpaceBetween>
+                    </div>
                 </FormField>
-
-
                 <Box data-id="chat-window">
                     {
                         messages.length ?
@@ -109,9 +131,7 @@ export default () => {
                                 <MessageList messages={messages} />
                                 {loading ? <Spinner /> : null}
                             </Container>
-                            : null
-
-                    }
+                            : null                    }
                 </Box>
                 {
                     llmResponse !== "" ?
