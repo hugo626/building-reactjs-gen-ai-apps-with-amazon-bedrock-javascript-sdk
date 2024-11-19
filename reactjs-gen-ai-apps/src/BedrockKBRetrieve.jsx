@@ -1,6 +1,6 @@
 import {useState, useRef } from "react"
 
-import { Box, Spinner, Header, Container, SpaceBetween, Textarea, Button } from "@cloudscape-design/components"
+import { Box, Spinner, Header, Container, SpaceBetween, Textarea, Button, Input, FormField } from "@cloudscape-design/components"
 import MessageList from "./MessageList"
 import BedrockKBLoader from "./BedrockKBLoader";
 import { getBedrockKnowledgeBaseRetriever } from "./llmLib"
