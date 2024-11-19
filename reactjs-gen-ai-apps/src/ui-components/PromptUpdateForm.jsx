@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField, TextAreaField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { getPrompt } from "../graphql/queries";
@@ -163,8 +163,9 @@ export default function PromptUpdateForm(props) {
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Prompt"
+        resize="vertical"
         isRequired={false}
         isReadOnly={false}
         value={prompt}
@@ -187,7 +188,7 @@ export default function PromptUpdateForm(props) {
         errorMessage={errors.prompt?.errorMessage}
         hasError={errors.prompt?.hasError}
         {...getOverrideProps(overrides, "prompt")}
-      ></TextField>
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
