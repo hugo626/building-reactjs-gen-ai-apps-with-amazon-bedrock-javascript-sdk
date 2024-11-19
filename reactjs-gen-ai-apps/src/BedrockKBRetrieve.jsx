@@ -11,8 +11,6 @@ import { filterDocsByScore } from "./questionGenerator";
 
 export default () => {
 
-    const [scoreValue, setScoreValue] = useState(0.5)
-    const [topKValue, setTopKValue] = useState(20)
     const [loading, setLoading] = useState(false)
     const [llmResponse, setLLMResponse] = useState("")
     const [messages, setMessages] = useState([])
@@ -20,11 +18,6 @@ export default () => {
     const childRef = useRef(null);
     const childRef2 = useRef(null);
     const childRef3 = useRef(null);
-    const childRef4 = useRef(null);
-    const childRef5 = useRef(null);
-
-    console.log(" scoreValue:", scoreValue)
-    console.log(" topKValue:", topKValue)
 
     const handleLLMNewToken = ({ type, content_block, delta }) => {
         handleStreamingTokenResponse({ type, content_block, delta }, setLLMResponse, setMessages, setLoading)
