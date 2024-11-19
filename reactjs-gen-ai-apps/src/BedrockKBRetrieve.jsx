@@ -12,6 +12,7 @@ import { filterDocsByScore } from "./questionGenerator";
 export default () => {
 
     const [scoreValue, setScoreValue] = useState(0.5)
+    const [topKValue, setTopKValue] = useState(20)
     const [loading, setLoading] = useState(false)
     const [llmResponse, setLLMResponse] = useState("")
     const [messages, setMessages] = useState([])
@@ -37,7 +38,7 @@ export default () => {
         console.log("standalone question:", question)
         setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
 
-        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value)
+        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, topKValue)
         const docs = await retriever.invoke(question)   
 
         let minScore = scoreValue
@@ -66,10 +67,20 @@ export default () => {
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
-                <Input type="number" inputMode="numeric" 
-                    value={scoreValue.toString()}
-                    onChange={({ detail }) => setScoreValue(Number(detail.value))}
-                    />
+                
+                <FormField label="MinScore ">
+                    <Input type="number" inputMode="numeric" 
+                        value={scoreValue.toString()}
+                        onChange={({ detail }) => setScoreValue(Number(detail.value))}
+                        />
+                </FormField>
+
+                <FormField label="Top K">
+                    <Input type="number" inputMode="numeric" 
+                        value={topKValue.toString()}
+                        onChange={({ detail }) => setTopKValue(Number(detail.value))}
+                        />
+                </FormField>
                 <Box data-id="chat-window">
                     {
                         messages.length ?
