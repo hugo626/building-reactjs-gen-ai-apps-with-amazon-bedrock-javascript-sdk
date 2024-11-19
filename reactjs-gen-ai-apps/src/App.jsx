@@ -21,13 +21,13 @@ const App = ({ signOut, user }) => {
       errorElement: <div>something went wrong!</div>,
       element: <Struct signOut={signOut}  {...user} />,
       children: [
-        { path: "multimodal", element: <MultiModalLLM/> },
+        // { path: "multimodal", element: <MultiModalLLM/> },
         { path: "retrieveandgenerate", element: <BedrockKBAndGenerate  /> },
         { path: "prompt", element: <Prompts /> },
         { path: "prompt/new", element: <PromptNew /> },
         { path: "prompt/:PromptId", element: <Prompt /> },
         { path: "retrieve", element: <BedrockKBRetrieve /> },
-        { path: "bedrockagent", element: <BedrockAgent /> },
+        // { path: "bedrockagent", element: <BedrockAgent /> },
 
       ]
     }

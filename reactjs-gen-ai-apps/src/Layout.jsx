@@ -31,8 +31,8 @@ export default () => {
                         [
                             {
                                 type: "section", text: "Chat With Amazon Bedrock Multimodal", items: [
-/*                                     { type: "link", href: "/llm", text: "Chat Q&A" },
-                                    { type: "link", href: "/chat", text: "Chat with Memory" }, */
+                                    { type: "link", href: "/llm", text: "Chat Q&A" },
+                                    { type: "link", href: "/chat", text: "Chat with Memory" }, 
                                     { type: "link", href: "/multimodal", text: "Multimodal Chatbot" },
 
                                 ]
@@ -54,8 +54,8 @@ export default () => {
                             {
                                 type: "section", text: "Agents for Amazon Bedrock", items: [
                                 { type: 'link', text: `Agents`, href: `/bedrockagent` },
-                            ]
-                        }
+                                ]
+                            }
                         ]
                     }
                     onFollow={event => {

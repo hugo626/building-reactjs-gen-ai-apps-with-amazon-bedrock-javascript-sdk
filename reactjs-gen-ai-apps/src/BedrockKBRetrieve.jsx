@@ -11,7 +11,7 @@ import { filterDocsByScore } from "./questionGenerator";
 
 export default () => {
 
-    const [value, setValue] = useState("")
+    const [scoreValue, setScoreValue] = useState(0.5)
     const [loading, setLoading] = useState(false)
     const [llmResponse, setLLMResponse] = useState("")
     const [messages, setMessages] = useState([])
@@ -40,7 +40,7 @@ export default () => {
         const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value)
         const docs = await retriever.invoke(question)   
 
-        let minScore = 0.5
+        let minScore = scoreValue
         const filteredDocs = filterDocsByScore(docs, minScore)
         console.log(" docs:", docs)
         if (filteredDocs.length === 0) {
@@ -66,7 +66,10 @@ export default () => {
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
-
+                <Input type="number" inputMode="numeric" 
+                    value={scoreValue.toString()}
+                    onChange={({ detail }) => setScoreValue(Number(detail.value))}
+                    />
                 <Box data-id="chat-window">
                     {
                         messages.length ?
