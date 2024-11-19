@@ -8,6 +8,7 @@ import FMPicker from "./FMPicker";
 import { answerQuestionWithContext, getStandaloneQuestion } from "./questionGenerator";
 import { buildContent, handleStreamingTokenResponse } from "./messageHelpers";
 import { filterDocsByScore, filteredResultsByScore } from "./questionGenerator";
+import PromptPicker from "./PromptPicker";
 
 export default () => {
 
