@@ -21,6 +21,8 @@ export default () => {
     const childRef2 = useRef(null);
     const childRef3 = useRef(null);
 
+    console.log(" scoreValue:", scoreValue)
+    console.log(" topKValue:", topKValue)
 
     const handleLLMNewToken = ({ type, content_block, delta }) => {
         handleStreamingTokenResponse({ type, content_block, delta }, setLLMResponse, setMessages, setLoading)
@@ -67,20 +69,22 @@ export default () => {
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
-                
+
                 <FormField label="MinScore ">
                     <Input type="number" inputMode="numeric" 
                         value={scoreValue.toString()}
                         onChange={({ detail }) => setScoreValue(Number(detail.value))}
+                        key={4}
                         />
                 </FormField>
 
-                <FormField label="Top K">
+                {/* <FormField label="Top K">
                     <Input type="number" inputMode="numeric" 
                         value={topKValue.toString()}
                         onChange={({ detail }) => setTopKValue(Number(detail.value))}
+                        key={5}
                         />
-                </FormField>
+                </FormField> */}
                 <Box data-id="chat-window">
                     {
                         messages.length ?
