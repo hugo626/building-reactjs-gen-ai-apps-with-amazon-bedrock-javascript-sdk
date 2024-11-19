@@ -14,15 +14,15 @@ export const questionGenerator = async ({ modelId, messages, question, callbacks
 }
 
 const getContextFromDoc = (doc) => {
-    let page = doc.metadata?.page ? ` Pag ${doc.metadata.page}` : ""
+    let page = doc.metadata?.page ? ` Page ${doc.metadata.page}` : ""
     let source = doc.metadata?.source ? `<cite>${doc.metadata.source}${page}</cite>` : ""
-    return `<document>${doc.pageContent}${page}${source}<document>`
+    return `<document>${doc.pageContent}${source}<document>`
 }
 
 const getContextFromResult = (result) => {
-    let page = result.metadata["x-amz-bedrock-kb-document-page-number"]? `Pag ${result.metadata["x-amz-bedrock-kb-document-page-number"]}` : ""
-    let source = result.metadata["x-amz-bedrock-kb-source-uri"]? `<cite>${result.metadata["x-amz-bedrock-kb-source-uri"]}${page}</cite>` : ""
-    return `<document>${result.content?.text}${page}${source}<document>`
+    let page = result.metadata["x-amz-bedrock-kb-document-page-number"]? `<page>Page ${result.metadata["x-amz-bedrock-kb-document-page-number"]}</page>` : ""
+    let source = result.metadata["x-amz-bedrock-kb-source-uri"]? `<source><url>${result.metadata["x-amz-bedrock-kb-source-uri"]}</url>${page}</source>` : ""
+    return `<document>${result.content?.text}${source}<document>`
 }
 
 export const answerQuestionWithContextFromMemory = async ({ modelId, docs, question, callbacks }) => {
@@ -55,7 +55,6 @@ export const filterDocsByScore = (docs, minScore) => docs.filter(doc => {
 })
 
 export const filteredResultsByScore = (results, minScore) => results.filter(result => {
-    console.log("result.metadata?.score:", result.score)
     if (result.score ){
         return result.score >= minScore
     } 
@@ -63,15 +62,17 @@ export const filteredResultsByScore = (results, minScore) => results.filter(resu
 })
 
 
-export const answerQuestionWithContext = async ({ modelId, docs, question, callbacks,results }) => {
+export const answerQuestionWithContext = async ({ modelId, results, question, callbacks, prompt }) => {
     const newMessages = [{ role: "user", content: [{ type: "text", text: question }] }]
 
 
     let context = docs.map(doc => getContextFromDoc(doc)).join("\n")
     let context_results = results.map(result => getContextFromResult(result)).join("\n")
 
-    let system = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context}. Provide sources (in the <cite> tags within your response)`
-    console.log("context:", context_results)
+    let defaultSystem = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context_results}. Provide sources (in the <source> tags within your response) `
+    let system = prompt? `${prompt} \n\n${context_results}`: defaultSystem;
+    
+    console.log("system:", system)
 
     const body = {
         "messages": newMessages,

@@ -21,6 +21,7 @@ export default () => {
     const childRef = useRef(null);
     const childRef2 = useRef(null);
     const childRef3 = useRef(null);
+    const promptPickerRef = useRef(null);
 
     const handleLLMNewToken = ({ type, content_block, delta }) => {
         handleStreamingTokenResponse({ type, content_block, delta }, setLLMResponse, setMessages, setLoading)
@@ -32,6 +33,9 @@ export default () => {
         let currentKb = childRef.current.getSelectedOption()
         let currentModelId = childRef2.current.getModelId()
         let content = await buildContent(value, [])
+        const customizedSystemPrompt = promptPickerRef.current.getPrompt()
+        console.log(" systemPrompt:", customizedSystemPrompt);
+
         setValue("")
         setMessages(prev => [...prev,{ role: "user", content: content }])
         const question = await getStandaloneQuestion({modelId:currentModelId, messages:messages,  question:  value})
@@ -39,7 +43,7 @@ export default () => {
         setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
 
         const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, question);
-        console.log(" retrieveCommand:", response);
+
         const filteredResults = filteredResultsByScore(response.retrievalResults, scoreValue)
         console.log(" filteredResults:", filteredResults);
 
@@ -52,7 +56,7 @@ export default () => {
             let nodocs_msg = "I'm sorry. No Documents, so I don't know the answer to that question."
             setLLMResponse(msg => msg + `${nodocs_msg}`)
         } else {
-            const answer  =  await answerQuestionWithContext({modelId: currentModelId,question: question, docs: filteredDocs,   callbacks: [{ handleLLMNewToken }], results:filteredResults})
+            const answer  =  await answerQuestionWithContext({modelId: currentModelId,question: question, results:filteredResults, callbacks: [{ handleLLMNewToken }], prompt:customizedSystemPrompt})
             // console.log(answer)
         }
 
@@ -71,6 +75,7 @@ export default () => {
             <SpaceBetween size="xs">
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
+                <PromptPicker ref={promptPickerRef} />
                 <FormField label="MinScore">
                     <div className="flex-wrapper">
                         <div className="slider-wrapper">
