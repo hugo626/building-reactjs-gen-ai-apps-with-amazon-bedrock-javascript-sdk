@@ -20,8 +20,8 @@ const getContextFromDoc = (doc) => {
 }
 
 const getContextFromResult = (result) => {
-    let page = result.metadata?.x-amz-bedrock-kb-document-page-number? ` Pag ${result.metadata.x-amz-bedrock-kb-document-page-number}` : ""
-    let source = result.metadata?.x-amz-bedrock-kb-source-uri? `<cite>${result.metadata.x-amz-bedrock-kb-source-uri}${page}</cite>` : ""
+    let page = result.metadata?["x-amz-bedrock-kb-document-page-number"]?` Pag ${result.metadata["x-amz-bedrock-kb-document-page-number"]}` : ""
+    let source = result.metadata?["x-amz-bedrock-kb-source-uri"]?`<cite>${result.metadata["x-amz-bedrock-kb-source-uri"]}${page}</cite>` : ""
     return `<document>${result.content?.text}${page}${source}<document>`
 }
 
