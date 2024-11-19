@@ -3,7 +3,7 @@ import {useState, useRef } from "react"
 import { Box, Spinner, Header, Container, SpaceBetween, Textarea, Button, Input, FormField } from "@cloudscape-design/components"
 import MessageList from "./MessageList"
 import BedrockKBLoader from "./BedrockKBLoader";
-import { getBedrockKnowledgeBaseRetriever } from "./llmLib"
+import { getBedrockKnowledgeBaseRetriever, retrieveBedrockKnowledgeBase } from "./llmLib"
 import FMPicker from "./FMPicker";
 import { answerQuestionWithContext, getStandaloneQuestion } from "./questionGenerator";
 import { buildContent, handleStreamingTokenResponse } from "./messageHelpers";
@@ -37,6 +37,9 @@ export default () => {
         const question = await getStandaloneQuestion({modelId:currentModelId, messages:messages,  question:  value})
         console.log("standalone question:", question)
         setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
+
+        const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, question);
+        console.log(" retrieveCommand:", response);
 
         const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, topKValue)
         const docs = await retriever.invoke(question)   

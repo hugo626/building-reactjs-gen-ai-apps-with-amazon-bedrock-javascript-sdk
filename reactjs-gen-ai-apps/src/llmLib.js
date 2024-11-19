@@ -175,7 +175,7 @@ export const invokeBedrockAgent = async (sessionId, agentId, agentAlias, query) 
 }
 
 
-export const retrieveBedrockKnowledgeBase = async (knowledgeBaseId, query) => {
+export const retrieveBedrockKnowledgeBase = async (knowledgeBaseId, topKValue, query) => {
     const session = await fetchAuthSession()
     let region = session.identityId.split(":")[0]
 
@@ -187,7 +187,7 @@ export const retrieveBedrockKnowledgeBase = async (knowledgeBaseId, query) => {
         },
         retrievalConfiguration: { // KnowledgeBaseRetrievalConfiguration
             vectorSearchConfiguration: { // KnowledgeBaseVectorSearchConfiguration
-                numberOfResults: 5, // required
+                numberOfResults: topKValue, // required
             },
         }
     }
