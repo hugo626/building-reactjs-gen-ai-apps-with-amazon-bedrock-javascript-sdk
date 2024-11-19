@@ -66,7 +66,7 @@ export const answerQuestionWithContext = async ({ modelId, results, question, ca
     const newMessages = [{ role: "user", content: [{ type: "text", text: question }] }]
 
 
-    let context = docs.map(doc => getContextFromDoc(doc)).join("\n")
+    // let context = docs.map(doc => getContextFromDoc(doc)).join("\n")
     let context_results = results.map(result => getContextFromResult(result)).join("\n")
 
     let defaultSystem = `Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. \n\n${context_results}. Provide sources (in the <source> tags within your response) `
