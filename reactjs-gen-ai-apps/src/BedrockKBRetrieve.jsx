@@ -20,6 +20,8 @@ export default () => {
     const childRef = useRef(null);
     const childRef2 = useRef(null);
     const childRef3 = useRef(null);
+    const childRef4 = useRef(null);
+    const childRef5 = useRef(null);
 
     console.log(" scoreValue:", scoreValue)
     console.log(" topKValue:", topKValue)
@@ -40,7 +42,7 @@ export default () => {
         console.log("standalone question:", question)
         setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
 
-        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value, 20)
+        const retriever = await getBedrockKnowledgeBaseRetriever(currentKb.value)
         const docs = await retriever.invoke(question)   
 
         let minScore = 0.5
