@@ -72,27 +72,6 @@ export default () => {
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
 
-                {/* <FormField label="MinScore ">
-                    <Input type="number" inputMode="numeric" 
-                        value={scoreValue.toString()}
-                        onChange={({ detail }) => {
-                            console.log("MinScore change: "+detail)
-                            // setScoreValue(Number(detail.value))
-                        }}
-                        key={4}
-                        />
-                </FormField> */}
-
-                {/* <FormField label="Top K">
-                    <Input type="number" inputMode="numeric" 
-                        value={topKValue.toString()}
-                        onChange={({ detail }) => {
-                            console.log("MinScore change: "+detail)
-                            // setTopKValue(Number(detail.value))
-                        }}
-                        key={5}
-                        />
-                </FormField> */}
                 <Box data-id="chat-window">
                     {
                         messages.length ?
