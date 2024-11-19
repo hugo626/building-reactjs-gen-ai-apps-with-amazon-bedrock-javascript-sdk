@@ -73,18 +73,25 @@ export default () => {
                 <FormField label="MinScore ">
                     <Input type="number" inputMode="numeric" 
                         value={scoreValue.toString()}
-                        onChange={({ detail }) => setScoreValue(Number(detail.value))}
+                        onChange={({ detail }) => {
+                            console.log("MinScore change: "+detail)
+                            // setScoreValue(Number(detail.value))
+
+                        }}
                         key={4}
                         />
                 </FormField>
 
-                {/* <FormField label="Top K">
+                <FormField label="Top K">
                     <Input type="number" inputMode="numeric" 
                         value={topKValue.toString()}
-                        onChange={({ detail }) => setTopKValue(Number(detail.value))}
+                        onChange={({ detail }) => {
+                            console.log("MinScore change: "+detail)
+                            // setTopKValue(Number(detail.value))
+                        }}
                         key={5}
                         />
-                </FormField> */}
+                </FormField>
                 <Box data-id="chat-window">
                     {
                         messages.length ?
