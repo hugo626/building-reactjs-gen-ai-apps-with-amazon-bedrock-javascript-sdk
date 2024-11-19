@@ -67,13 +67,31 @@ export default () => {
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
                 <FormField label="MinScore ">
-                    <Input type="number" inputMode="numeric" 
+                    <Slider
+                        onChange={({ detail }) =>
+                            setScoreValue(detail.value)
+                        }
+                        value={scoreValue}
+                        max={1}
+                        min={0}
+                        step={0.1}
+                    />
+                    <Input type="number" inputMode="decimal" 
                         value={scoreValue.toString()}
+                        step={0.1}
                         onChange={({ detail }) => setScoreValue(Number(detail.value))}
                         />
                 </FormField>
 
                 <FormField label="Top K">
+                    <Slider
+                        onChange={({ detail }) =>
+                            setTopKValue(detail.value)
+                        }
+                        value={topKValue}
+                        max={50}
+                        min={3}
+                    />
                     <Input type="number" inputMode="numeric" 
                         value={topKValue.toString()}
                         onChange={({ detail }) => setTopKValue(Number(detail.value))}
