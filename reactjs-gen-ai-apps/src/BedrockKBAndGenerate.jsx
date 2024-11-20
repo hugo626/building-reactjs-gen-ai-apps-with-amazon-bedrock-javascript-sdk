@@ -30,6 +30,7 @@ export default () => {
         let text = response?.output?.text
         setSessionId(response.sessionId)
         console.log(" response:", response)
+        
         let citations = response?.citations.map(citation => {
             return citation.retrievedReferences.map(reference => {
                 let location = reference.location
