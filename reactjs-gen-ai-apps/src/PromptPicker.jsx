@@ -22,6 +22,7 @@ export default forwardRef(({ }, ref) => {
               value: "Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Provide sources (in the <source> tags within your response)" 
             }
         )
+        console.log(list);
         let first = list[0]
         setPrompts(list)
         if (first) {
