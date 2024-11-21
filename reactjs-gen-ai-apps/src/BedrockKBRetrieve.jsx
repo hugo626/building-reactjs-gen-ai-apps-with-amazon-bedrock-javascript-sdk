@@ -77,7 +77,35 @@ export default () => {
                 <BedrockKBLoader ref={childRef} key={1} />
                 <FMPicker ref={childRef2} multimodal={true} key={3} />
                 <PromptPicker ref={promptPickerRef} />
-                <FormField label="MinScore">
+                <FormField label="Top K "
+                description="The Top K value determines the number of documents the LLM should retrieve from the knowledge base in the first step. Each document returned includes a score that reflects its relevance to the question.">
+                    <div className="flex-wrapper">
+                        <div className="slider-wrapper">
+                            <Slider
+                                onChange={({ detail }) =>
+                                    setTopKValue(detail.value)
+                                }
+                                value={topKValue}
+                                max={50}
+                                min={3}
+                            />
+                        </div>
+                        <SpaceBetween
+                        size="m"
+                        alignItems="center"
+                        direction="horizontal"
+                        >
+                        <div className="input-wrapper">
+                            <Input type="number" inputMode="numeric" 
+                                value={topKValue.toString()}
+                                onChange={({ detail }) => setTopKValue(Number(detail.value))} />
+                        </div>
+                        </SpaceBetween>
+                    </div>
+                </FormField>
+
+                <FormField label="MinScore " 
+                 description="The MinScore value controls which documents are included for the LLM to generate the final answer. A value of 0 means any document will be included.">
                     <div className="flex-wrapper">
                         <div className="slider-wrapper">
                         <Slider
@@ -104,32 +132,7 @@ export default () => {
                         </SpaceBetween>
                     </div>
                 </FormField>
-
-                <FormField label="MinScore">
-                    <div className="flex-wrapper">
-                        <div className="slider-wrapper">
-                            <Slider
-                                onChange={({ detail }) =>
-                                    setTopKValue(detail.value)
-                                }
-                                value={topKValue}
-                                max={50}
-                                min={3}
-                            />
-                        </div>
-                        <SpaceBetween
-                        size="m"
-                        alignItems="center"
-                        direction="horizontal"
-                        >
-                        <div className="input-wrapper">
-                            <Input type="number" inputMode="numeric" 
-                                value={topKValue.toString()}
-                                onChange={({ detail }) => setTopKValue(Number(detail.value))} />
-                        </div>
-                        </SpaceBetween>
-                    </div>
-                </FormField>
+                
                 <Box data-id="chat-window">
                     {
                         messages.length ?
