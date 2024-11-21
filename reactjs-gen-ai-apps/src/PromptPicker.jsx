@@ -17,6 +17,18 @@ export default forwardRef(({ }, ref) => {
 
     const getList = async () => {
         let list = await fetchByValue("listPrompts")
+        list.unshift(
+            {
+                "id": "default",
+                "name": "Default Prompt for Retrieve => LLM",
+                "prompt": "Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Provide sources (in the <source> tags within your response)",
+                "createdAt": "2024-11-19T13:45:38.215Z",
+                "updatedAt": "2024-11-19T13:54:43.795Z",
+                "owner": "default",
+                "__typename": "Prompt"
+            }
+        )
+        console.log(list);
         let first = list[0]
         setPrompts(list)
         if (first) {
@@ -33,13 +45,6 @@ export default forwardRef(({ }, ref) => {
         const options = prompts ? prompts.map(pr => {
             return { label: pr.name, value: pr.prompt }
         }) : []
-
-        options.unshift(
-            { 
-              label: "Default Prompt for Retrieve => LLM", 
-              value: "Use the following pieces of documents to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Provide sources (in the <source> tags within your response)" 
-            }
-        )
         return options
     }
 
