@@ -41,7 +41,7 @@ export default () => {
         setMessages(prev => [...prev,{ role: "user", content: content }])
         const question = await getStandaloneQuestion({modelId:currentModelId, messages:messages,  question:  value})
         console.log("standalone question:", question)
-        setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
+        setLLMResponse(msg => msg + `Anwsering: <strong>${value}</strong><br/>`)
 
         const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, value);
 
