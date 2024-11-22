@@ -16,6 +16,7 @@ export default () => {
 
     const childRef = useRef(null)
     const childRef2 = useRef(null)
+    const promptPickerRef = useRef(null);
 
 
     const sendText = async () => {

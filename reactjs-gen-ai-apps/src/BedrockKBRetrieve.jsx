@@ -41,9 +41,9 @@ export default () => {
         setMessages(prev => [...prev,{ role: "user", content: content }])
         const question = await getStandaloneQuestion({modelId:currentModelId, messages:messages,  question:  value})
         console.log("standalone question:", question)
-        setLLMResponse(msg => msg + `Anwsering: <strong>${value}</strong><br/>`)
+        setLLMResponse(msg => msg + `Anwsering: <strong>${question}</strong><br/>`)
 
-        const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, value);
+        const response = await retrieveBedrockKnowledgeBase(currentKb.value, topKValue, question);
 
         const filteredResults = filteredResultsByScore(response.retrievalResults, scoreValue)
         console.log(" filteredResults:", filteredResults);
@@ -57,7 +57,7 @@ export default () => {
             let nodocs_msg = "I'm sorry. No Documents, so I don't know the answer to that question."
             setLLMResponse(msg => msg + `${nodocs_msg}`)
         } else {
-            const answer  =  await answerQuestionWithContext({modelId: currentModelId,question: value, results:filteredResults, callbacks: [{ handleLLMNewToken }], prompt:customizedSystemPrompt})
+            const answer  =  await answerQuestionWithContext({modelId: currentModelId,question: question, results:filteredResults, callbacks: [{ handleLLMNewToken }], prompt:customizedSystemPrompt})
             // console.log(answer)
         }
 
